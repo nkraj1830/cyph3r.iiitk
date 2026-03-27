@@ -1,9 +1,9 @@
 // Initialize Swiper Hero Slider
 const swiper = new Swiper('.mySwiper', {
     loop: true,
-    speed: 1000, // Makes the transition a smooth 1-second glide
+    speed: 1000,
     autoplay: {
-        delay: 3500, // Waits 3.5 seconds before changing
+        delay: 3500,
         disableOnInteraction: false,
     },
 });
@@ -21,7 +21,6 @@ function typeWriter() {
     }
 }
 
-// Ensure the typing starts when scrolling to the About section
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -30,5 +29,33 @@ const observer = new IntersectionObserver((entries) => {
         }
     });
 });
-
 observer.observe(document.getElementById('about'));
+
+
+// ==========================================
+// NEW: Lightbox (Image Click-to-Enlarge) Logic
+// ==========================================
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const galleryImages = document.querySelectorAll('.gallery-img');
+const closeBtn = document.querySelector('.close-lightbox');
+
+// Open lightbox on image click
+galleryImages.forEach(img => {
+    img.addEventListener('click', () => {
+        lightbox.style.display = 'flex'; // Display the hidden container
+        lightboxImg.src = img.src;       // Set the high-res image source
+    });
+});
+
+// Close lightbox when clicking the 'X'
+closeBtn.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+});
+
+// Close lightbox when clicking anywhere on the dark background
+lightbox.addEventListener('click', (e) => {
+    if (e.target !== lightboxImg) {
+        lightbox.style.display = 'none';
+    }
+});
