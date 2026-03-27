@@ -33,11 +33,14 @@ observer.observe(document.getElementById('about'));
 
 
 // ==========================================
-// NEW: Lightbox (Image Click-to-Enlarge) Logic
+// Lightbox (Image Click-to-Enlarge) Logic
 // ==========================================
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
-const galleryImages = document.querySelectorAll('.gallery-img');
+
+// NOTE: We updated this line to select BOTH event images and team member images
+const galleryImages = document.querySelectorAll('.gallery-img, .cyber-card img');
+
 const closeBtn = document.querySelector('.close-lightbox');
 
 // Open lightbox on image click
