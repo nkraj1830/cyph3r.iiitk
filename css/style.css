@@ -1,0 +1,611 @@
+/* --- Variables & Reset --- */
+:root {
+    --bg-dark: #121212;
+    --bg-card: #1a1a1a;
+    --neon-green: #39ff14;
+    --neon-orange: #ff6600;
+    --neon-red: #ff003c;
+    --neon-blue: #00e5ff;
+    --text-main: #e0e0e0;
+    --font-head: 'Orbitron', sans-serif;
+    --font-mono: 'Share Tech Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-dark);
+    /* Catchy Hex/Tech Grid Background */
+    background-image:
+        linear-gradient(rgba(255, 102, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 102, 0, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    color: var(--text-main);
+    font-family: var(--font-mono);
+    line-height: 1.6;
+    overflow-x: hidden;
+    /* Prevents side-scrolling globally */
+}
+
+/* --- The CRT Monitor Scanline Effect --- */
+body::after {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 9999;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 20px;
+}
+
+h1,
+h2,
+h3,
+.logo-text {
+    font-family: var(--font-head);
+    text-transform: uppercase;
+}
+
+/* --- Navigation --- */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: rgba(18, 18, 18, 0.95);
+    border-bottom: 2px solid var(--neon-orange);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 0 15px rgba(255, 102, 0, 0.2);
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-logo {
+    width: 50px;
+    height: auto;
+    filter: drop-shadow(0 0 5px var(--neon-orange));
+}
+
+.logo-text {
+    font-size: 2rem;
+    color: var(--neon-orange);
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+}
+
+.nav-links a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-family: var(--font-head);
+    transition: all 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--neon-green);
+    text-shadow: 0 0 10px var(--neon-green);
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(80%) contrast(120%);
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.4);
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    background: rgba(18, 18, 18, 0.15);
+    padding: 40px;
+    border: 1px solid var(--neon-orange);
+    box-shadow: 0 0 30px rgba(255, 102, 0, 0.2);
+    backdrop-filter: blur(1px);
+}
+
+.pre-title {
+    color: var(--neon-green);
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* --- MASSIVE HEADING GLITCH EFFECT --- */
+.massive-title {
+    font-size: 8rem;
+    color: #fff;
+    text-shadow: 0 0 20px var(--neon-orange);
+    letter-spacing: 5px;
+    margin: 10px 0;
+    position: relative;
+}
+
+.cyber-glitch::before,
+.cyber-glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+.cyber-glitch::before {
+    left: 4px;
+    text-shadow: -3px 0 var(--neon-red);
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim 3s infinite linear alternate-reverse;
+}
+
+.cyber-glitch::after {
+    left: -4px;
+    text-shadow: -3px 0 var(--neon-blue);
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% {
+        clip: rect(10px, 9999px, 80px, 0);
+    }
+
+    20% {
+        clip: rect(60px, 9999px, 20px, 0);
+    }
+
+    40% {
+        clip: rect(30px, 9999px, 90px, 0);
+    }
+
+    60% {
+        clip: rect(80px, 9999px, 40px, 0);
+    }
+
+    80% {
+        clip: rect(20px, 9999px, 70px, 0);
+    }
+
+    100% {
+        clip: rect(50px, 9999px, 10px, 0);
+    }
+}
+
+@keyframes glitch-anim-2 {
+    0% {
+        clip: rect(65px, 9999px, 100px, 0);
+    }
+
+    20% {
+        clip: rect(25px, 9999px, 50px, 0);
+    }
+
+    40% {
+        clip: rect(85px, 9999px, 30px, 0);
+    }
+
+    60% {
+        clip: rect(45px, 9999px, 80px, 0);
+    }
+
+    80% {
+        clip: rect(15px, 9999px, 60px, 0);
+    }
+
+    100% {
+        clip: rect(75px, 9999px, 20px, 0);
+    }
+}
+
+.sub-title {
+    font-size: 2rem;
+    color: var(--neon-green);
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+}
+
+.tagline {
+    font-size: 1.3rem;
+    color: var(--text-main);
+    font-family: var(--font-mono);
+}
+
+/* --- Intro Terminal --- */
+.massive-terminal {
+    font-size: 1.2rem;
+    background: #151515;
+    border: 2px solid #333;
+    box-shadow: 8px 8px 0px var(--neon-orange);
+    border-radius: 5px;
+}
+
+.terminal-header {
+    background: #222;
+    padding: 10px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+}
+
+.red {
+    background: #ff5f56;
+}
+
+.yellow {
+    background: #ffbd2e;
+}
+
+.green {
+    background: #27c93f;
+}
+
+.header-title {
+    color: #888;
+    margin-left: auto;
+    font-size: 1rem;
+}
+
+.terminal-body {
+    padding: 30px;
+}
+
+.command {
+    color: var(--neon-green);
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.intro-text p {
+    margin-bottom: 20px;
+    font-size: 1.15rem;
+    color: #ccc;
+}
+
+.neon-text {
+    color: var(--neon-orange);
+    display: inline;
+    font-weight: bold;
+}
+
+/* --- Team Section --- */
+.section-title {
+    font-size: 3.5rem;
+    color: #fff;
+    text-shadow: 0 0 15px var(--neon-orange);
+    margin-bottom: 60px;
+    text-align: center;
+    /* SAFEFY NET: Forces long text like sys.get_operatives() to wrap if needed */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.role-title {
+    color: var(--neon-green);
+    font-size: 2rem;
+    margin: 50px 0 30px;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.coordinator-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
+    justify-content: center;
+}
+
+.senior-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
+    justify-content: center;
+}
+
+.cyber-card {
+    background: var(--bg-card);
+    border: 1px solid #333;
+    border-top: 4px solid var(--neon-orange);
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cyber-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--neon-orange);
+    box-shadow: 0 0 20px rgba(255, 102, 0, 0.2);
+    z-index: 10;
+}
+
+.cyber-card img {
+    width: 140px;
+    height: 140px;
+    border: 2px solid var(--neon-orange);
+    margin-bottom: 20px;
+    filter: grayscale(100%);
+    transition: 0.3s;
+}
+
+.cyber-card:hover img {
+    filter: grayscale(0%);
+}
+
+.cyber-card h4 {
+    font-size: 1.6rem;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.rank {
+    font-size: 1.1rem;
+    color: var(--neon-green);
+    font-family: var(--font-mono);
+}
+
+/* --- Contact Section --- */
+.contact-terminal {
+    background: #151515;
+    padding: 40px;
+    border-left: 4px solid var(--neon-orange);
+    font-size: 1.4rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    word-wrap: break-word;
+}
+
+.prompt {
+    color: var(--neon-green);
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+.output {
+    margin: 15px 0 30px 25px;
+}
+
+.output a {
+    color: var(--neon-orange);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    word-break: break-all;
+}
+
+.output a:hover {
+    color: #fff;
+    text-shadow: 0 0 10px var(--neon-orange);
+}
+
+/* --- Footer --- */
+.cyber-footer {
+    background: #0f0f0f;
+    border-top: 2px solid #222;
+    padding: 50px 20px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.footer-logo {
+    width: 70px;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.footer-title {
+    font-family: var(--font-head);
+    font-size: 1.8rem;
+    color: var(--neon-orange);
+    margin-bottom: 10px;
+}
+
+.copyright {
+    color: #888;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.exit-code {
+    color: var(--neon-red);
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   MOBILE & TABLET RESPONSIVENESS (THE FIX)
+   ========================================================= */
+
+/* Tablets and smaller laptops */
+@media screen and (max-width: 992px) {
+    .massive-title {
+        font-size: 5.5rem;
+    }
+
+    .hero-content {
+        padding: 30px;
+    }
+}
+
+/* Mobile Phones */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 60px 15px;
+    }
+
+    nav {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .nav-brand {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .nav-links {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        border-top: 1px dashed rgba(255, 102, 0, 0.4);
+        padding-top: 15px;
+    }
+
+    .nav-links a {
+        font-size: 1rem;
+        padding: 8px 12px;
+        background: rgba(255, 102, 0, 0.1);
+        border: 1px solid rgba(255, 102, 0, 0.3);
+        border-radius: 4px;
+    }
+
+    .grid,
+    .coordinator-grid,
+    .senior-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .hero-section {
+        height: auto;
+        padding: 120px 15px 80px;
+    }
+
+    .massive-title {
+        font-size: 3.2rem;
+        letter-spacing: 2px;
+    }
+
+    .sub-title {
+        font-size: 1.2rem;
+    }
+
+    .tagline {
+        font-size: 1rem;
+    }
+
+    /* Shrinking the section titles so sys.get_operatives fits */
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+
+    .massive-terminal {
+        font-size: 1rem;
+    }
+
+    .terminal-body {
+        padding: 20px 15px;
+    }
+
+    .intro-text p {
+        font-size: 1rem;
+    }
+
+    .contact-terminal {
+        font-size: 1rem;
+        padding: 20px 15px;
+    }
+
+    .output {
+        margin: 10px 0 25px 0;
+    }
+
+    .output a {
+        font-size: 1.1rem;
+    }
+}
+
+/* Very Small Phones */
+@media screen and (max-width: 480px) {
+    .massive-title {
+        font-size: 2.5rem;
+    }
+
+    .logo-text {
+        font-size: 1.5rem;
+    }
+
+    /* Extreme shrink for the unbroken strings on tiny screens */
+    .section-title {
+        font-size: 1.4rem;
+    }
+
+    .role-title {
+        font-size: 1.5rem;
+    }
+
+    .cyber-card {
+        padding: 20px;
+    }
+}
